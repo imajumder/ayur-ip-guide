@@ -92,6 +92,7 @@ export default function Layout({
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [directoryOpen, setDirectoryOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -114,14 +115,44 @@ export default function Layout({
               <HelpCircle className="size-3" />
               Help
             </Link>
-            <Link to="/" className="hover:text-primary-foreground transition-colors flex items-center gap-1">
+            <Link to="/site-map" className="hover:text-primary-foreground transition-colors flex items-center gap-1">
               <Map className="size-3" />
               Site Map
             </Link>
-            <button className="hover:text-primary-foreground transition-colors flex items-center gap-1">
-              <Globe className="size-3" />
-              हिन्दी
-            </button>
+            {/* Language selector */}
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen(!langOpen)}
+                className="hover:text-primary-foreground transition-colors flex items-center gap-1"
+              >
+                <Globe className="size-3" />
+                Language
+              </button>
+              {langOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
+                  <div className="absolute right-0 top-full mt-1 z-50 w-44 bg-card border border-border rounded shadow-lg">
+                    <div className="p-2">
+                      <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground px-2 py-1">
+                        Select Language
+                      </p>
+                      {["English", "हिन्दी", "ଓଡ଼ିଆ", "বাংলা", "தமிழ்", "తెలుగు"].map((lang) => (
+                        <button
+                          key={lang}
+                          onClick={() => setLangOpen(false)}
+                          className="w-full text-left px-3 py-1.5 text-xs rounded hover:bg-muted transition-colors flex items-center gap-2"
+                        >
+                          <span className="text-foreground">{lang}</span>
+                          {lang === "English" && (
+                            <span className="text-[9px] text-muted-foreground ml-auto">Default</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

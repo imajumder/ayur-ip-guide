@@ -88,6 +88,7 @@ const QUICK_LINKS = [
 
 export default function Landing() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [jurisdiction, setJurisdiction] = useState<"india" | "international">("india");
 
   return (
     <Layout>
@@ -138,16 +139,34 @@ export default function Landing() {
                 </Link>
               </div>
 
-              {/* Jurisdiction badges */}
-              <div className="mt-4 flex items-center gap-2">
-                <span className="jurisdiction-india px-2 py-0.5 rounded text-[10px] font-bold tracking-wide">
-                  INDIA
-                </span>
-                <span className="jurisdiction-international px-2 py-0.5 rounded text-[10px] font-bold tracking-wide">
-                  INTERNATIONAL
-                </span>
-                <span className="text-[10px] text-secondary-foreground/50">
-                  — Clear jurisdictional separation
+              {/* Jurisdiction switch */}
+              <div className="mt-4">
+                <div className="inline-flex items-center rounded border border-secondary-foreground/20 bg-secondary-foreground/5 p-0.5">
+                  <button
+                    onClick={() => setJurisdiction("india")}
+                    className={cn(
+                      "px-3 py-1.5 rounded text-[10px] font-bold tracking-wide transition-all",
+                      jurisdiction === "india"
+                        ? "bg-[#FF9933] text-white shadow"
+                        : "text-secondary-foreground/60 hover:text-secondary-foreground"
+                    )}
+                  >
+                    INDIA
+                  </button>
+                  <button
+                    onClick={() => setJurisdiction("international")}
+                    className={cn(
+                      "px-3 py-1.5 rounded text-[10px] font-bold tracking-wide transition-all",
+                      jurisdiction === "international"
+                        ? "bg-primary-foreground/20 text-primary-foreground shadow"
+                        : "text-secondary-foreground/60 hover:text-secondary-foreground"
+                    )}
+                  >
+                    INTERNATIONAL
+                  </button>
+                </div>
+                <span className="text-[10px] text-secondary-foreground/50 ml-2">
+                  — {jurisdiction === "india" ? "National legal & regulatory frameworks" : "International treaties & frameworks"}
                 </span>
               </div>
             </div>
@@ -158,23 +177,28 @@ export default function Landing() {
                 <div className="bg-primary text-primary-foreground px-4 py-2">
                   <span className="text-xs font-bold">Domain Overview</span>
                 </div>
-                <div className="p-4 space-y-2.5">
+                <div className="p-3 space-y-0.5">
                   {[
-                    { icon: Scale, label: "IPR" },
-                    { icon: FlaskConical, label: "Ayurveda" },
-                    { icon: BookOpen, label: "Traditional Knowledge" },
-                    { icon: Leaf, label: "Biological Resources" },
-                    { icon: Landmark, label: "ABS" },
-                    { icon: Stethoscope, label: "Regulation" },
+                    { icon: Scale, label: "IPR", href: "/ip-legal" },
+                    { icon: FlaskConical, label: "Ayurveda", href: "/ayush-regulation" },
+                    { icon: BookOpen, label: "Traditional Knowledge", href: "/traditional-knowledge" },
+                    { icon: Leaf, label: "Biological Resources", href: "/abs" },
+                    { icon: Landmark, label: "ABS", href: "/abs" },
+                    { icon: Stethoscope, label: "Regulation", href: "/ayush-regulation" },
                   ].map((item) => {
                     const Icon = item.icon;
                     return (
-                      <div key={item.label} className="flex items-center gap-2.5 text-sm">
-                        <div className="size-6 rounded bg-primary/10 flex items-center justify-center shrink-0">
-                          <Icon className="size-3.5 text-primary" />
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        className="flex items-center gap-2.5 text-sm px-2 py-2 rounded hover:bg-primary/5 transition-colors group"
+                      >
+                        <div className="size-6 rounded bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                          <Icon className="size-3.5 text-primary group-hover:text-primary-foreground" />
                         </div>
-                        <span className="font-medium text-foreground">{item.label}</span>
-                      </div>
+                        <span className="font-medium text-foreground group-hover:text-primary transition-colors">{item.label}</span>
+                        <ChevronRight className="size-3 text-muted-foreground ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </Link>
                     );
                   })}
                 </div>

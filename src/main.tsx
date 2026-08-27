@@ -92,6 +92,7 @@ const InternationalIPPage = makePlaceholder("International IP", "Information abo
   { label: "Documents", href: "/documents" },
   { label: "Ask Sahayak", href: "/chat" },
 ]);
+const SiteMapPage = lazy(() => import("./pages/SiteMap.tsx"));
 
 // Simple loading fallback for route transitions
 function RouteLoading() {
@@ -231,6 +232,7 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/cosmetics" element={<CosmeticsPage />} />
               <Route path="/advertising" element={<AdvertisingPage />} />
               <Route path="/international-ip" element={<InternationalIPPage />} />
+              <Route path="/site-map" element={<SiteMapPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
