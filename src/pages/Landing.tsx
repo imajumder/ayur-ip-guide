@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   Shield,
   Scale,

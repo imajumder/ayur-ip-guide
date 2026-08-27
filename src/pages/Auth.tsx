@@ -110,13 +110,14 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-muted/30">
+      {/* Tricolor stripe */}
+      <div className="gov-tricolor" />
 
-      
       {/* Auth Content */}
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center py-8">
         <div className="flex items-center justify-center h-full flex-col">
-        <Card className="min-w-[350px] pb-0 border shadow-md">
+        <div className="min-w-[350px] bg-card border border-border rounded shadow-sm overflow-hidden">
           {step === "signIn" ? (
             <>
               <CardHeader className="text-center">
@@ -277,18 +278,10 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
             </>
           )}
 
-          <div className="py-4 px-6 text-xs text-center text-muted-foreground bg-muted border-t rounded-b-lg">
-            Secured by{" "}
-            <a
-              href="https://freebuff.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-primary transition-colors"
-            >
-              freebuff.com
-            </a>
+          <div className="py-3 px-6 text-xs text-center text-muted-foreground bg-muted border-t">
+            IP-SAKTI Sahayak — Intellectual Property &amp; Ayurveda Information Portal
           </div>
-        </Card>
+        </div>
         </div>
       </div>
     </div>
