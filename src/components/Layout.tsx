@@ -33,21 +33,21 @@ const FOOTER_SECTIONS = [
   {
     title: "IP Services",
     links: [
-      { label: "Patents", href: "/chat?prefill=patent" },
-      { label: "Trademarks", href: "/ip-legal" },
-      { label: "Geographical Indications", href: "/ip-legal" },
-      { label: "Copyright", href: "/ip-legal" },
-      { label: "Designs", href: "/ip-legal" },
-      { label: "Plant Variety Protection", href: "/ip-legal" },
+      { label: "Patents", href: "/patents" },
+      { label: "Trademarks", href: "/trademarks" },
+      { label: "Geographical Indications", href: "/geographical-indications" },
+      { label: "Copyright", href: "/copyright" },
+      { label: "Designs", href: "/designs" },
+      { label: "Plant Variety Protection", href: "/plant-variety-protection" },
     ],
   },
   {
     title: "Traditional Knowledge",
     links: [
       { label: "TK Overview", href: "/traditional-knowledge" },
-      { label: "TKDL Resources", href: "/traditional-knowledge" },
-      { label: "Prior Art", href: "/traditional-knowledge" },
-      { label: "Community Knowledge", href: "/traditional-knowledge" },
+      { label: "TKDL Resources", href: "/tkdl" },
+      { label: "Prior Art", href: "/prior-art" },
+      { label: "Community Knowledge", href: "/community-knowledge" },
       { label: "International TK Frameworks", href: "/traditional-knowledge" },
     ],
   },
@@ -55,10 +55,10 @@ const FOOTER_SECTIONS = [
     title: "Regulatory",
     links: [
       { label: "ABS Information", href: "/abs" },
-      { label: "AYUSH Regulation", href: "/chat?prefill=regulation" },
-      { label: "Food / Ayurveda-Aahar", href: "/chat?prefill=food" },
-      { label: "Cosmetics", href: "/chat?prefill=cosmetic" },
-      { label: "Advertising", href: "/chat?prefill=advertising" },
+      { label: "AYUSH Regulation", href: "/ayush-regulation" },
+      { label: "Food / Ayurveda-Aahar", href: "/food-regulation" },
+      { label: "Cosmetics", href: "/cosmetics" },
+      { label: "Advertising", href: "/advertising" },
     ],
   },
   {
@@ -67,6 +67,7 @@ const FOOTER_SECTIONS = [
       { label: "Documents & Publications", href: "/documents" },
       { label: "Notifications & Updates", href: "/notifications" },
       { label: "Frequently Asked Questions", href: "/faq" },
+      { label: "International IP", href: "/international-ip" },
       { label: "IP-SAKTI Sahayak", href: "/chat" },
       { label: "About This Portal", href: "/" },
     ],
@@ -90,7 +91,7 @@ export default function Layout({
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [directoryOpen, setDirectoryOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -140,23 +141,89 @@ export default function Layout({
             </div>
           </Link>
 
-          {/* Search bar */}
-          <div className="flex-1 max-w-md ml-auto hidden md:block">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Search portal..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && searchQuery.trim()) {
-                    navigate(`/chat?q=${encodeURIComponent(searchQuery.trim())}`);
-                  }
-                }}
-                className="w-full pl-9 pr-4 py-1.5 rounded bg-muted text-foreground border border-border text-xs placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/30"
-              />
-            </div>
+          {/* Directory filter */}
+          <div className="ml-auto hidden md:block relative">
+            <button
+              onClick={() => setDirectoryOpen(!directoryOpen)}
+              className="flex items-center gap-2 px-3 py-1.5 rounded bg-muted border border-border text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
+            >
+              <Search className="size-3.5" />
+              Browse Directory
+            </button>
+            {directoryOpen && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setDirectoryOpen(false)} />
+                <div className="absolute right-0 top-full mt-1 z-50 w-80 bg-card border border-border rounded shadow-lg animate-in fade-in-0 zoom-in-95">
+                  <div className="p-3 border-b border-border">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                      Portal Directory
+                    </p>
+                  </div>
+                  <div className="p-2 max-h-80 overflow-y-auto">
+                    {[
+                      {
+                        category: "IP & Legal",
+                        items: [
+                          { label: "IP & Legal Domains", href: "/ip-legal" },
+                          { label: "Patents", href: "/patents" },
+                          { label: "Trademarks", href: "/trademarks" },
+                          { label: "Geographical Indications", href: "/geographical-indications" },
+                          { label: "Copyright", href: "/copyright" },
+                          { label: "Designs", href: "/designs" },
+                          { label: "Plant Variety Protection", href: "/plant-variety-protection" },
+                        ],
+                      },
+                      {
+                        category: "Traditional Knowledge",
+                        items: [
+                          { label: "Traditional Knowledge", href: "/traditional-knowledge" },
+                          { label: "TKDL Resources", href: "/tkdl" },
+                          { label: "Prior Art", href: "/prior-art" },
+                          { label: "Community Knowledge", href: "/community-knowledge" },
+                        ],
+                      },
+                      {
+                        category: "Regulatory",
+                        items: [
+                          { label: "ABS", href: "/abs" },
+                          { label: "AYUSH Regulation", href: "/ayush-regulation" },
+                          { label: "Food & Nutraceuticals", href: "/food-regulation" },
+                          { label: "Cosmetics", href: "/cosmetics" },
+                          { label: "Advertising", href: "/advertising" },
+                        ],
+                      },
+                      {
+                        category: "Resources",
+                        items: [
+                          { label: "Documents", href: "/documents" },
+                          { label: "Notifications", href: "/notifications" },
+                          { label: "FAQ", href: "/faq" },
+                          { label: "International IP", href: "/international-ip" },
+                          { label: "IP-SAKTI Sahayak", href: "/chat" },
+                        ],
+                      },
+                    ].map((section) => (
+                      <div key={section.category} className="mb-2">
+                        <p className="text-[9px] font-bold uppercase tracking-wider text-primary px-2 py-1">
+                          {section.category}
+                        </p>
+                        {section.items.map((item) => (
+                          <Link
+                            key={item.href}
+                            to={item.href}
+                            onClick={() => setDirectoryOpen(false)}
+                            className="flex items-center gap-2 px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                          >
+                            <ChevronRight className="size-3 shrink-0 opacity-40" />
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Auth */}

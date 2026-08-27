@@ -154,11 +154,11 @@ export default function Landing() {
 
             {/* Right — Domain overview panel */}
             <div className="lg:col-span-2">
-              <div className="gov-panel rounded">
-                <div className="gov-panel-header">
-                  Domain Overview
+              <div className="bg-card border border-border rounded overflow-hidden">
+                <div className="bg-primary text-primary-foreground px-4 py-2">
+                  <span className="text-xs font-bold">Domain Overview</span>
                 </div>
-                <div className="p-4 space-y-2">
+                <div className="p-4 space-y-2.5">
                   {[
                     { icon: Scale, label: "IPR" },
                     { icon: FlaskConical, label: "Ayurveda" },
@@ -169,9 +169,11 @@ export default function Landing() {
                   ].map((item) => {
                     const Icon = item.icon;
                     return (
-                      <div key={item.label} className="flex items-center gap-2 text-sm">
-                        <Icon className="size-4 text-primary shrink-0" />
-                        <span className="font-medium">{item.label}</span>
+                      <div key={item.label} className="flex items-center gap-2.5 text-sm">
+                        <div className="size-6 rounded bg-primary/10 flex items-center justify-center shrink-0">
+                          <Icon className="size-3.5 text-primary" />
+                        </div>
+                        <span className="font-medium text-foreground">{item.label}</span>
                       </div>
                     );
                   })}
@@ -216,7 +218,7 @@ export default function Landing() {
               const Icon = item.icon;
               return (
                 <Link key={item.title} to={item.href} className="block h-full">
-                  <div className="gov-panel rounded h-full hover:border-primary/30 transition-colors group">
+                  <div className="gov-panel rounded h-full hover:border-primary/30 hover:shadow-sm transition-all duration-150 group cursor-pointer">
                     <div className="p-4 flex items-start gap-3">
                       <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
                         <Icon className="size-4" />
@@ -275,13 +277,13 @@ export default function Landing() {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <Link to="/chat">
-                      <Button size="sm" className="gap-1.5 h-8 text-xs">
+                      <Button size="sm" className="gap-1.5 h-8 text-xs active:scale-95 transition-transform">
                         <MessageSquare className="size-3" />
                         Ask IP-SAKTI Sahayak
                       </Button>
                     </Link>
                     <Link to="/faq">
-                      <Button variant="outline" size="sm" className="gap-1.5 h-8 text-xs">
+                      <Button variant="outline" size="sm" className="gap-1.5 h-8 text-xs active:scale-95 transition-transform">
                         <HelpCircle className="size-3" />
                         Browse FAQs
                       </Button>
@@ -329,20 +331,23 @@ export default function Landing() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {IP_DOMAINS.map((item) => {
               const Icon = item.icon;
+              const slug = item.title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z-]/g, "");
               return (
-                <div key={item.title} className="gov-panel rounded">
-                  <div className="p-4 flex items-start gap-3">
-                    <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
-                      <Icon className="size-4" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold">{item.title}</h3>
-                      <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
-                        {item.description}
-                      </p>
+                <Link key={item.title} to={`/${slug}`} className="block h-full">
+                  <div className="gov-panel rounded h-full hover:border-primary/30 hover:shadow-sm transition-all duration-150 group cursor-pointer">
+                    <div className="p-4 flex items-start gap-3">
+                      <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                        <Icon className="size-4" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">{item.title}</h3>
+                        <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -365,12 +370,12 @@ export default function Landing() {
             {AYURVEDA_RESOURCES.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="gov-panel rounded">
+                <div key={item.title} className="gov-panel rounded hover:border-primary/30 hover:shadow-sm transition-all duration-150 cursor-pointer group">
                   <div className="p-4">
-                    <div className="size-8 rounded bg-emerald-600/10 text-emerald-700 flex items-center justify-center mb-2">
+                    <div className="size-8 rounded bg-emerald-600/10 text-emerald-700 flex items-center justify-center mb-2 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                       <Icon className="size-4" />
                     </div>
-                    <h3 className="text-sm font-semibold mb-0.5">{item.title}</h3>
+                    <h3 className="text-sm font-semibold mb-0.5 group-hover:text-primary transition-colors">{item.title}</h3>
                     <p className="text-[11px] text-muted-foreground leading-relaxed">
                       {item.description}
                     </p>
@@ -413,7 +418,7 @@ export default function Landing() {
                 ))}
               </div>
               <Link to="/chat?prefill=tk">
-                <Button variant="outline" size="sm" className="gap-1.5 h-8 text-xs">
+                <Button variant="outline" size="sm" className="gap-1.5 h-8 text-xs active:scale-95 transition-transform">
                   <MessageSquare className="size-3" />
                   Ask about Traditional Knowledge
                   <ArrowRight className="size-3" />
@@ -438,14 +443,18 @@ export default function Landing() {
                 Find an IP Facilitator, contact support, or explore government resources.
               </p>
               <div className="flex gap-2 shrink-0">
-                <Button variant="outline" size="sm" className="h-8 text-xs gap-1">
-                  <Users className="size-3" />
-                  IP Facilitator
-                </Button>
-                <Button variant="outline" size="sm" className="h-8 text-xs gap-1">
-                  <Building2 className="size-3" />
-                  Government Resources
-                </Button>
+                <Link to="/faq">
+                  <Button variant="outline" size="sm" className="h-8 text-xs gap-1 active:scale-95 transition-transform">
+                    <Users className="size-3" />
+                    IP Facilitator
+                  </Button>
+                </Link>
+                <Link to="/documents">
+                  <Button variant="outline" size="sm" className="h-8 text-xs gap-1 active:scale-95 transition-transform">
+                    <Building2 className="size-3" />
+                    Government Resources
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

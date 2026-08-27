@@ -21,6 +21,77 @@ const IPLegalPage = lazy(() => import("./pages/IPLegal.tsx"));
 const TKPage = lazy(() => import("./pages/TraditionalKnowledge.tsx"));
 const ABSPage = lazy(() => import("./pages/ABS.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const PlaceholderPage = lazy(() => import("./pages/PlaceholderPage.tsx"));
+
+// Helper to create placeholder pages with proper props
+function makePlaceholder(title: string, description: string, related: { label: string; href: string }[] = []) {
+  return function Placeholder() {
+    return <PlaceholderPage title={title} description={description} relatedLinks={related} />;
+  };
+}
+
+const PatentsPage = makePlaceholder("Patents", "Information about patent protection for Ayurvedic formulations, inventions, and traditional knowledge-related innovations.", [
+  { label: "IP & Legal Domains", href: "/ip-legal" },
+  { label: "Traditional Knowledge & Patents", href: "/traditional-knowledge" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const TrademarksPage = makePlaceholder("Trade Marks", "Information about trade mark protection for Ayurvedic product brands, logos, and marks.", [
+  { label: "IP & Legal Domains", href: "/ip-legal" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const GIPage = makePlaceholder("Geographical Indications", "Information about GI protection for regional Ayurvedic products and community-associated goods.", [
+  { label: "IP & Legal Domains", href: "/ip-legal" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const CopyrightPage = makePlaceholder("Copyright", "Information about copyright protection for original expression, documentation, and creative works.", [
+  { label: "IP & Legal Domains", href: "/ip-legal" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const DesignsPage = makePlaceholder("Designs", "Information about design protection for product appearance, packaging, and ornamental features.", [
+  { label: "IP & Legal Domains", href: "/ip-legal" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const PlantVarietyPage = makePlaceholder("Plant Variety Protection", "Information about plant variety protection for medicinal plants, cultivars, and breeders' rights.", [
+  { label: "IP & Legal Domains", href: "/ip-legal" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const TKDLPage = makePlaceholder("TKDL Resources", "Information about the Traditional Knowledge Digital Library and its role in preventing erroneous patents.", [
+  { label: "Traditional Knowledge", href: "/traditional-knowledge" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const PriorArtPage = makePlaceholder("Prior Art", "Information about prior art analysis in the context of traditional knowledge and Ayurvedic innovations.", [
+  { label: "Traditional Knowledge", href: "/traditional-knowledge" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const CommunityKnowledgePage = makePlaceholder("Community Knowledge", "Information about community-held traditional knowledge and related protections.", [
+  { label: "Traditional Knowledge", href: "/traditional-knowledge" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const AYUSHRegulationPage = makePlaceholder("AYUSH Regulation", "Information about regulatory requirements for Ayurvedic medicines, including classical and proprietary classifications.", [
+  { label: "ABS", href: "/abs" },
+  { label: "Documents", href: "/documents" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const FoodRegulationPage = makePlaceholder("Food & Nutraceutical Regulation", "Information about FSSAI requirements and food regulatory pathway for Ayurveda-Aahar products.", [
+  { label: "ABS", href: "/abs" },
+  { label: "Documents", href: "/documents" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const CosmeticsPage = makePlaceholder("Cosmetics Regulation", "Information about cosmetics classification and regulatory requirements for Ayurvedic cosmetic products.", [
+  { label: "ABS", href: "/abs" },
+  { label: "Documents", href: "/documents" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const AdvertisingPage = makePlaceholder("Advertising Restrictions", "Information about advertising restrictions and compliance requirements for Ayurvedic products.", [
+  { label: "ABS", href: "/abs" },
+  { label: "Documents", href: "/documents" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
+const InternationalIPPage = makePlaceholder("International IP", "Information about international IP systems including PCT, Madrid, Hague, and related frameworks.", [
+  { label: "IP & Legal Domains", href: "/ip-legal" },
+  { label: "Documents", href: "/documents" },
+  { label: "Ask Sahayak", href: "/chat" },
+]);
 
 // Simple loading fallback for route transitions
 function RouteLoading() {
@@ -146,6 +217,20 @@ createRoot(document.getElementById("root")!).render(
                   </RequireAuth>
                 }
               />
+              <Route path="/patents" element={<PatentsPage />} />
+              <Route path="/trademarks" element={<TrademarksPage />} />
+              <Route path="/geographical-indications" element={<GIPage />} />
+              <Route path="/copyright" element={<CopyrightPage />} />
+              <Route path="/designs" element={<DesignsPage />} />
+              <Route path="/plant-variety-protection" element={<PlantVarietyPage />} />
+              <Route path="/tkdl" element={<TKDLPage />} />
+              <Route path="/prior-art" element={<PriorArtPage />} />
+              <Route path="/community-knowledge" element={<CommunityKnowledgePage />} />
+              <Route path="/ayush-regulation" element={<AYUSHRegulationPage />} />
+              <Route path="/food-regulation" element={<FoodRegulationPage />} />
+              <Route path="/cosmetics" element={<CosmeticsPage />} />
+              <Route path="/advertising" element={<AdvertisingPage />} />
+              <Route path="/international-ip" element={<InternationalIPPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
