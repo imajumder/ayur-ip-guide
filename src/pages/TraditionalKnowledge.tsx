@@ -1,8 +1,6 @@
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import {
   BookOpen,
   Search,
@@ -87,14 +85,7 @@ const TK_SECTIONS = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
-};
+
 
 export default function TraditionalKnowledge() {
   return (
@@ -123,17 +114,9 @@ export default function TraditionalKnowledge() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {TK_SECTIONS.map((section, i) => {
             const Icon = section.icon;
-            return (
-              <motion.div
-                key={section.title}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                variants={fadeUp}
-              >
-                <Card className="h-full border-border/60 hover:border-primary/30 hover:shadow-md transition-all duration-200">
-                  <CardContent className="pt-5 pb-5 px-5">
+            return (              <div key={section.title}>
+                <div className="gov-panel rounded h-full hover:border-primary/30 transition-colors">
+                  <div className="p-4">
                     <div className="size-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
                       <Icon className="size-5" />
                     </div>
@@ -154,17 +137,17 @@ export default function TraditionalKnowledge() {
                         </div>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>
 
         {/* TKDL Workflow */}
         <div className="mt-12 max-w-3xl mx-auto">
-          <Card className="border-primary/20">
-            <CardContent className="pt-6 pb-6 px-6">
+          <div className="gov-panel rounded">
+            <div className="p-6">
               <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
                 <Search className="size-5 text-primary" />
                 TKDL / Prior-Art Workflow
@@ -194,8 +177,8 @@ export default function TraditionalKnowledge() {
                   necessary."
                 </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* CTA */}

@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import {
   Scale,
   BookOpen,
@@ -216,8 +214,8 @@ export default function FAQ() {
             </p>
             <div className="space-y-3">
               {filteredItems.map((item, i) => (
-                <Card key={`${item.categoryTitle}-${i}`} className="border-border/60">
-                  <CardContent className="pt-4 pb-4 px-5">
+                <div key={`${item.categoryTitle}-${i}`} className="gov-panel rounded">
+                  <div className="p-4">
                     <p className="text-[10px] text-primary font-semibold uppercase tracking-wider mb-1">
                       {item.categoryTitle}
                     </p>
@@ -227,8 +225,8 @@ export default function FAQ() {
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {item.answer}
                     </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -246,7 +244,7 @@ export default function FAQ() {
                       key={cat.id}
                       onClick={() => setActiveCategory(cat.id)}
                       className={cn(
-                        "w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-left transition-colors",
+                        "w-full flex items-center gap-2 px-3 py-2.5 rounded text-sm font-medium text-left transition-colors",
                         isActive
                           ? "bg-primary/10 text-primary"
                           : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -275,13 +273,13 @@ export default function FAQ() {
                       const key = `${activeCat.id}-${i}`;
                       const isOpen = openItems.has(key);
                       return (
-                        <Card
+                        <div
                           key={key}
-                          className="border-border/60 overflow-hidden"
+                          className="gov-panel rounded overflow-hidden"
                         >
                           <button
                             onClick={() => toggleItem(key)}
-                            className="w-full flex items-center justify-between px-5 py-4 text-left"
+                            className="w-full flex items-center justify-between px-5 py-3 text-left"
                           >
                             <span className="font-medium text-sm pr-4">
                               {item.question}
@@ -294,13 +292,13 @@ export default function FAQ() {
                             />
                           </button>
                           {isOpen && (
-                            <div className="px-5 pb-4 pt-0">
-                              <p className="text-xs text-muted-foreground leading-relaxed">
+                            <div className="px-5 pb-4 pt-0 border-t border-border">
+                              <p className="text-xs text-muted-foreground leading-relaxed mt-3">
                                 {item.answer}
                               </p>
                             </div>
                           )}
-                        </Card>
+                        </div>
                       );
                     })}
                   </div>
@@ -311,28 +309,25 @@ export default function FAQ() {
         )}
 
         {/* CTA */}
-        <div className="mt-12 text-center">
-          <Card className="inline-block border-primary/20 bg-primary/5">
-            <CardContent className="py-6 px-8">
-              <p className="text-sm font-medium mb-2">
-                Still have questions?
-              </p>
-              <p className="text-xs text-muted-foreground mb-4">
-                Ask IP-SAKTI Sahayak for source-cited guidance.
-              </p>
-              <Link to="/chat">
-                <Button size="sm" className="gap-1.5">
-                  <MessageSquare className="size-3.5" />
-                  Ask Sahayak
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+        <div className="mt-10 gov-panel rounded">
+          <div className="p-6 text-center">
+            <p className="text-sm font-semibold mb-1">
+              Still have questions?
+            </p>
+            <p className="text-xs text-muted-foreground mb-4">
+              Ask IP-SAKTI Sahayak for source-cited guidance.
+            </p>
+            <Link to="/chat">
+              <Button size="sm" className="gap-1.5 h-8 text-xs">
+                <MessageSquare className="size-3" />
+                Ask Sahayak
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-8 flex items-start gap-2 max-w-2xl mx-auto p-3 rounded-lg bg-muted/50">
-          <AlertTriangle className="size-4 text-amber-600 shrink-0 mt-0.5" />
+        <div className="mt-6 gov-info-box rounded">
           <p className="text-[10px] text-muted-foreground leading-relaxed">
             Answers are provided for informational and educational purposes and
             should be verified against the latest authoritative sources. They do

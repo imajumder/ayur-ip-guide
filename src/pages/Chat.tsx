@@ -10,16 +10,13 @@ import {
 import type { Source } from "@/components/SourceCitation";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Send,
   Loader2,
   FlaskConical,
-  BookOpen,
   Shield,
-  Scale,
-  Leaf,
   AlertTriangle,
+  MessageSquare,
 } from "lucide-react";
 
 type Jurisdiction = "india" | "international";
@@ -302,7 +299,6 @@ export default function Chat() {
     setInputValue("");
     setIsTyping(true);
 
-    // Simulate AI response with delay
     setTimeout(() => {
       const response = getResponseForQuery(text);
       const assistantMsg: ChatMessageData = {
@@ -326,44 +322,53 @@ export default function Chat() {
     <Layout
       showBreadcrumbs
       breadcrumbs={[{ label: "IP-SAKTI Sahayak" }]}
-      className="flex flex-col h-[calc(100vh-4rem)]"
+      className="flex flex-col h-[calc(100vh-8rem)]"
     >
-      {/* Chat toolbar */}
-      <div className="border-b border-border bg-card px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3 shrink-0">
-        <div className="flex items-center gap-3">
+      {/* Chat toolbar — gov-panel style */}
+      <div className="border-b border-border bg-card shrink-0">
+        <div className="px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <div className="size-7 rounded-md bg-primary flex items-center justify-center">
-              <Shield className="size-3.5 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-sm font-bold leading-none">IP-SAKTI Sahayak</h1>
-              <p className="text-[10px] text-muted-foreground">
-                Source-cited guidance
-              </p>
-            </div>
+            <MessageSquare className="size-4 text-primary" />
+            <h1 className="text-sm font-bold font-[family-name:var(--font-serif)]">
+              IP-SAKTI Sahayak
+            </h1>
+            <span className="text-[10px] text-muted-foreground hidden sm:inline">
+              — Source-cited guidance
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowClassifier(!showClassifier)}
+              className="gap-1 text-xs h-7 hidden sm:flex"
+            >
+              <FlaskConical className="size-3" />
+              Classify Product
+            </Button>
+            <JurisdictionSwitch
+              value={jurisdiction}
+              onChange={setJurisdiction}
+            />
           </div>
         </div>
-
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowClassifier(!showClassifier)}
-            className="gap-1.5 text-xs hidden sm:flex"
-          >
-            <FlaskConical className="size-3.5" />
-            Classify Product
-          </Button>
-          <JurisdictionSwitch
-            value={jurisdiction}
-            onChange={setJurisdiction}
-          />
+        {/* Status bar */}
+        <div className="bg-muted border-t border-border px-4 sm:px-6 py-1 flex items-center gap-4 text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <span className="size-1.5 rounded-full bg-emerald-500" />
+            Sahayak Online
+          </span>
+          <span>Jurisdiction: {jurisdiction === "india" ? "India" : "International"}</span>
+          <span className="ml-auto hidden sm:inline">
+            Informational guidance — not legal advice
+          </span>
         </div>
       </div>
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
-        <div className="max-w-3xl mx-auto space-y-6">
+      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 bg-muted/30">
+        <div className="max-w-3xl mx-auto space-y-5">
           {messages.map((msg) => (
             <ChatMessage
               key={msg.id}
@@ -375,10 +380,10 @@ export default function Chat() {
           {/* Typing indicator */}
           {isTyping && (
             <div className="flex gap-3 animate-message-in">
-              <div className="size-8 rounded-lg bg-primary flex items-center justify-center shrink-0">
+              <div className="size-8 rounded bg-primary flex items-center justify-center shrink-0">
                 <Shield className="size-4 text-primary-foreground" />
               </div>
-              <div className="bg-card border border-border rounded-xl rounded-tl-sm px-4 py-3 shadow-sm">
+              <div className="bg-card border border-border rounded px-4 py-3">
                 <div className="flex items-center gap-1.5">
                   <div className="size-1.5 rounded-full bg-primary animate-bounce [animation-delay:0ms]" />
                   <div className="size-1.5 rounded-full bg-primary animate-bounce [animation-delay:150ms]" />
@@ -416,7 +421,7 @@ export default function Chat() {
                   }
                 }}
                 placeholder="Ask about IP, Ayurveda, traditional knowledge, ABS, regulation..."
-                className="min-h-[42px] max-h-[120px] resize-none text-sm pr-4"
+                className="min-h-[40px] max-h-[120px] resize-none text-sm pr-4"
                 rows={1}
               />
             </div>
@@ -424,7 +429,7 @@ export default function Chat() {
               size="icon"
               onClick={() => sendMessage(inputValue)}
               disabled={!inputValue.trim() || isTyping}
-              className="shrink-0"
+              className="shrink-0 h-10 w-10"
             >
               {isTyping ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -433,14 +438,20 @@ export default function Chat() {
               )}
             </Button>
           </div>
-          <div className="mt-2 flex items-center gap-2 flex-wrap">
+          <div className="mt-1.5 flex items-center gap-2 flex-wrap">
             <span className="text-[10px] text-muted-foreground">
               Press Enter to send • Shift+Enter for new line
             </span>
             <span className="text-[10px] text-muted-foreground">•</span>
-            <div className="jurisdiction-india text-[9px] px-1.5 py-0.5 rounded font-semibold">
+            <span
+              className={`text-[9px] px-1.5 py-0.5 rounded font-semibold ${
+                jurisdiction === "india"
+                  ? "jurisdiction-india"
+                  : "jurisdiction-international"
+              }`}
+            >
               {jurisdiction === "india" ? "INDIA" : "INTL"}
-            </div>
+            </span>
           </div>
         </div>
       </div>

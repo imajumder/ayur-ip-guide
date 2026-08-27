@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ChevronRight, ArrowLeft, FlaskConical, Info } from "lucide-react";
 
@@ -143,42 +142,34 @@ export function ProductClassifier({
   };
 
   return (
-    <Card className="border-primary/20 shadow-md">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-              <FlaskConical className="size-4" />
-            </div>
-            <div>
-              <CardTitle className="text-sm">
-                Classify Your Ayurvedic Product
-              </CardTitle>
-              <p className="text-[10px] text-muted-foreground">
-                Step {stepIndex + 1} of {STEPS.length}
-              </p>
-            </div>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
+    <div className="gov-panel rounded">
+      <div className="gov-panel-header flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <FlaskConical className="size-3.5" />
+          <span>Classify Your Ayurvedic Product</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-[10px] opacity-70">
+            Step {stepIndex + 1} of {STEPS.length}
+          </span>
+          <button
             onClick={onCancel}
-            className="text-xs text-muted-foreground"
+            className="text-[10px] opacity-70 hover:opacity-100 transition-opacity"
           >
             Cancel
-          </Button>
+          </button>
         </div>
-        {/* Progress bar */}
-        <div className="mt-2 h-1 bg-muted rounded-full overflow-hidden">
-          <div
-            className="h-full bg-primary transition-all duration-300"
-            style={{
-              width: `${((stepIndex + 1) / STEPS.length) * 100}%`,
-            }}
-          />
-        </div>
-      </CardHeader>
-      <CardContent className="pt-0">
+      </div>
+      {/* Progress bar */}
+      <div className="h-0.5 bg-primary-foreground/20">
+        <div
+          className="h-full bg-primary-foreground transition-all duration-300"
+          style={{
+            width: `${((stepIndex + 1) / STEPS.length) * 100}%`,
+          }}
+        />
+      </div>
+      <div className="p-4">
         <p className="text-sm font-medium mb-4">{currentStep.question}</p>
         <div className="space-y-2">
           {currentStep.options.map((option) => (
@@ -210,14 +201,13 @@ export function ProductClassifier({
             Back
           </Button>
         )}
-        <div className="mt-4 flex items-start gap-2 p-2.5 rounded-lg bg-muted/50">
-          <Info className="size-3.5 text-primary mt-0.5 shrink-0" />
+        <div className="mt-4 gov-info-box rounded">
           <p className="text-[10px] text-muted-foreground leading-relaxed">
             This is an informational guidance tool. Classification should be
             confirmed against the latest authoritative regulatory requirements.
           </p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

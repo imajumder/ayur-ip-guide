@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
   FileText,
@@ -224,8 +223,8 @@ export default function Documents() {
           <div className="lg:col-span-3">
             <div className="space-y-3">
               {filtered.map((doc) => (
-                <Card key={doc.title} className="border-border/60 hover:border-primary/20 transition-colors">
-                  <CardContent className="pt-4 pb-4 px-5">
+                <div key={doc.title} className="gov-panel rounded hover:border-primary/20 transition-colors">
+                  <div className="p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
@@ -237,10 +236,10 @@ export default function Documents() {
                           </span>
                           <span
                             className={cn(
-                              "text-[10px] font-semibold px-1.5 py-0.5 rounded border",
+                              "text-[10px] font-semibold px-1.5 py-0.5 rounded",
                               doc.status === "current"
-                                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                                : "bg-amber-50 text-amber-700 border-amber-200"
+                                ? "bg-emerald-50 text-emerald-700"
+                                : "bg-amber-50 text-amber-700"
                             )}
                           >
                             {doc.status.toUpperCase()}
@@ -261,12 +260,12 @@ export default function Documents() {
                           rel="noopener noreferrer"
                           className="shrink-0 text-primary hover:text-primary/80 transition-colors"
                         >
-                          <ExternalLink className="size-4" />
+                          <ExternalLink className="size-3.5" />
                         </a>
                       )}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               ))}
 
               {filtered.length === 0 && (
@@ -282,28 +281,25 @@ export default function Documents() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 text-center">
-          <Card className="inline-block border-primary/20 bg-primary/5">
-            <CardContent className="py-6 px-8">
-              <p className="text-sm font-medium mb-2">
-                Need help understanding a document?
-              </p>
-              <p className="text-xs text-muted-foreground mb-4">
-                Ask IP-SAKTI Sahayak to explain any regulatory document.
-              </p>
-              <Link to="/chat">
-                <Button size="sm" className="gap-1.5">
-                  <MessageSquare className="size-3.5" />
-                  Ask Sahayak
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+        <div className="mt-10 gov-panel rounded">
+          <div className="p-6 text-center">
+            <p className="text-sm font-semibold mb-1">
+              Need help understanding a document?
+            </p>
+            <p className="text-xs text-muted-foreground mb-4">
+              Ask IP-SAKTI Sahayak to explain any regulatory document.
+            </p>
+            <Link to="/chat">
+              <Button size="sm" className="gap-1.5 h-8 text-xs">
+                <MessageSquare className="size-3" />
+                Ask Sahayak
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-8 flex items-start gap-2 max-w-2xl mx-auto p-3 rounded-lg bg-muted/50">
-          <AlertTriangle className="size-4 text-amber-600 shrink-0 mt-0.5" />
+        <div className="mt-6 gov-info-box rounded">
           <p className="text-[10px] text-muted-foreground leading-relaxed">
             Document information is provided for reference purposes. Always
             consult the latest official sources for current legal requirements.

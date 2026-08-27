@@ -1,5 +1,4 @@
 import Layout from "@/components/Layout";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
   Bell,
@@ -77,14 +76,14 @@ export default function Notifications() {
         {/* Notifications list */}
         <div className="space-y-3 max-w-3xl">
           {NOTIFICATIONS.map((item) => (
-            <Card
+            <div
               key={item.id}
               className={cn(
-                "border-border/60",
+                "gov-panel rounded",
                 item.isImportant && "border-l-2 border-l-primary"
               )}
             >
-              <CardContent className="pt-4 pb-4 px-5">
+              <div className="p-4">
                 <div className="flex items-start gap-3">
                   <div className="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
                     <Bell className="size-4" />
@@ -105,15 +104,15 @@ export default function Notifications() {
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
 
         {/* Info card */}
         <div className="mt-10 max-w-2xl mx-auto">
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="py-5 px-6 text-center">
+          <div className="gov-panel rounded">
+            <div className="p-5 text-center">
               <Clock className="size-6 text-primary mx-auto mb-3" />
               <p className="text-sm font-medium mb-1">
                 Notifications are coming soon
@@ -123,8 +122,8 @@ export default function Notifications() {
                 display current notifications, circulars, regulatory changes, and
                 treaty developments relevant to IP, Ayurveda, TK, and ABS.
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Disclaimer */}

@@ -3,31 +3,74 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { AshokaEmblem } from "@/components/AshokaEmblem";
 import {
-  Shield,
-  BookOpen,
-  Scale,
-  Leaf,
   Globe,
-  FileText,
-  HelpCircle,
-  Bell,
   Menu,
   X,
   ChevronRight,
   LogIn,
   LogOut,
+  Search,
+  HelpCircle,
+  Map,
   MessageSquare,
+  ExternalLink,
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { label: "Sahayak", href: "/chat", icon: MessageSquare },
-  { label: "IP & Legal", href: "/ip-legal", icon: Scale },
-  { label: "Traditional Knowledge", href: "/traditional-knowledge", icon: BookOpen },
-  { label: "ABS", href: "/abs", icon: Leaf },
-  { label: "Documents", href: "/documents", icon: FileText },
-  { label: "Notifications", href: "/notifications", icon: Bell },
-  { label: "FAQ", href: "/faq", icon: HelpCircle },
+  { label: "Home", href: "/" },
+  { label: "IP-SAKTI Sahayak", href: "/chat" },
+  { label: "IP & Legal", href: "/ip-legal" },
+  { label: "Traditional Knowledge", href: "/traditional-knowledge" },
+  { label: "ABS", href: "/abs" },
+  { label: "Documents", href: "/documents" },
+  { label: "Notifications", href: "/notifications" },
+  { label: "FAQ", href: "/faq" },
+];
+
+const FOOTER_SECTIONS = [
+  {
+    title: "IP Services",
+    links: [
+      { label: "Patents", href: "/chat?prefill=patent" },
+      { label: "Trademarks", href: "/ip-legal" },
+      { label: "Geographical Indications", href: "/ip-legal" },
+      { label: "Copyright", href: "/ip-legal" },
+      { label: "Designs", href: "/ip-legal" },
+      { label: "Plant Variety Protection", href: "/ip-legal" },
+    ],
+  },
+  {
+    title: "Traditional Knowledge",
+    links: [
+      { label: "TK Overview", href: "/traditional-knowledge" },
+      { label: "TKDL Resources", href: "/traditional-knowledge" },
+      { label: "Prior Art", href: "/traditional-knowledge" },
+      { label: "Community Knowledge", href: "/traditional-knowledge" },
+      { label: "International TK Frameworks", href: "/traditional-knowledge" },
+    ],
+  },
+  {
+    title: "Regulatory",
+    links: [
+      { label: "ABS Information", href: "/abs" },
+      { label: "AYUSH Regulation", href: "/chat?prefill=regulation" },
+      { label: "Food / Ayurveda-Aahar", href: "/chat?prefill=food" },
+      { label: "Cosmetics", href: "/chat?prefill=cosmetic" },
+      { label: "Advertising", href: "/chat?prefill=advertising" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Documents & Publications", href: "/documents" },
+      { label: "Notifications & Updates", href: "/notifications" },
+      { label: "Frequently Asked Questions", href: "/faq" },
+      { label: "IP-SAKTI Sahayak", href: "/chat" },
+      { label: "About This Portal", href: "/" },
+    ],
+  },
 ];
 
 interface LayoutProps {
@@ -47,6 +90,7 @@ export default function Layout({
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSignOut = async () => {
     await signOut();
@@ -55,116 +99,135 @@ export default function Layout({
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Tricolor top stripe */}
+      {/* Tricolor stripe */}
       <div className="gov-tricolor" />
 
       {/* Utility bar */}
-      <div className="bg-secondary text-secondary-foreground text-xs">
+      <div className="bg-secondary text-secondary-foreground text-[11px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-8">
           <div className="flex items-center gap-4">
-            <span className="font-medium">IP-SAKTI Sahayak</span>
-            <span className="hidden sm:inline opacity-70">
-              Intellectual Property &amp; Ayurveda Information Portal
-            </span>
+            <span className="font-medium">भारत सरकार | Government of India</span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline opacity-70">
-              भारत सरकार | Government of India
-            </span>
-            <Globe className="size-3 opacity-70" />
+          <div className="flex items-center gap-4">
+            <Link to="/faq" className="hover:text-primary-foreground transition-colors flex items-center gap-1">
+              <HelpCircle className="size-3" />
+              Help
+            </Link>
+            <Link to="/" className="hover:text-primary-foreground transition-colors flex items-center gap-1">
+              <Map className="size-3" />
+              Site Map
+            </Link>
+            <button className="hover:text-primary-foreground transition-colors flex items-center gap-1">
+              <Globe className="size-3" />
+              हिन्दी
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Main header */}
+      {/* Main header with emblem */}
       <header className="bg-card border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-          {/* Logo & Identity */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="size-10 rounded-lg bg-primary flex items-center justify-center shrink-0">
-              <Shield className="size-6 text-primary-foreground" />
-            </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-4 py-3">
+          <Link to="/" className="flex items-center gap-3 shrink-0">
+            <AshokaEmblem className="size-14 text-primary" />
             <div className="flex flex-col">
-              <span className="text-lg font-bold tracking-tight leading-none text-foreground">
-                IP-SAKTI
+              <span className="text-base sm:text-lg font-bold tracking-tight leading-tight text-primary font-[family-name:var(--font-serif)]">
+                IP-SAKTI Sahayak
               </span>
-              <span className="text-[10px] font-medium tracking-wider text-primary uppercase leading-none mt-0.5">
-                Sahayak
+              <span className="text-[10px] text-muted-foreground leading-tight">
+                Intellectual Property &amp; Ayurveda Information Portal
               </span>
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => {
-              const Icon = item.icon;
-              const isActive = location.pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={cn(
-                    "flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                    isActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  )}
-                >
-                  <Icon className="size-4" />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Search bar */}
+          <div className="flex-1 max-w-md ml-auto hidden md:block">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search portal..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && searchQuery.trim()) {
+                    navigate(`/chat?q=${encodeURIComponent(searchQuery.trim())}`);
+                  }
+                }}
+                className="w-full pl-9 pr-4 py-1.5 rounded bg-muted text-foreground border border-border text-xs placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/30"
+              />
+            </div>
+          </div>
 
-          {/* Auth + Mobile Toggle */}
-          <div className="flex items-center gap-2">
+          {/* Auth */}
+          <div className="flex items-center gap-2 shrink-0">
             {isAuthenticated ? (
               <div className="hidden sm:flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {user?.name || "User"}
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={handleSignOut}
-                  className="gap-1.5 text-muted-foreground"
+                  className="gap-1 text-muted-foreground h-7 text-xs"
                 >
-                  <LogOut className="size-3.5" />
+                  <LogOut className="size-3" />
                   Sign out
                 </Button>
               </div>
             ) : (
               <Link to="/auth" className="hidden sm:block">
-                <Button variant="default" size="sm" className="gap-1.5">
-                  <LogIn className="size-3.5" />
+                <Button variant="outline" size="sm" className="gap-1 h-7 text-xs">
+                  <LogIn className="size-3" />
                   Sign in
                 </Button>
               </Link>
             )}
 
-            {/* Mobile menu button */}
+            {/* Mobile menu toggle */}
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="lg:hidden h-8 w-8"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? (
-                <X className="size-5" />
-              ) : (
-                <Menu className="size-5" />
-              )}
+              {mobileMenuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
             </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Navigation bar */}
+      <nav className="bg-primary text-primary-foreground border-b border-primary/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-stretch">
+            {NAV_ITEMS.map((item) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={cn(
+                    "px-4 py-2.5 text-xs font-medium transition-colors border-r border-primary-foreground/10 last:border-r-0",
+                    isActive
+                      ? "bg-primary-foreground/15"
+                      : "hover:bg-primary-foreground/10"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
         {/* Mobile nav */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-border bg-card">
-            <nav className="max-w-7xl mx-auto px-4 py-3 space-y-1">
+          <div className="lg:hidden border-t border-primary-foreground/20">
+            <div className="px-4 py-2 space-y-0.5">
               {NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
                 const isActive = location.pathname === item.href;
                 return (
                   <Link
@@ -172,48 +235,47 @@ export default function Layout({
                     to={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2.5 rounded-md text-sm font-medium transition-colors",
+                      "flex items-center gap-2 px-3 py-2 rounded text-xs font-medium transition-colors",
                       isActive
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        ? "bg-primary-foreground/15"
+                        : "hover:bg-primary-foreground/10"
                     )}
                   >
-                    <Icon className="size-4" />
                     {item.label}
                     <ChevronRight className="size-3 ml-auto opacity-40" />
                   </Link>
                 );
               })}
-              <div className="pt-2 border-t border-border mt-2">
+              <div className="pt-2 border-t border-primary-foreground/20 mt-2">
                 {isAuthenticated ? (
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={handleSignOut}
-                    className="w-full justify-start gap-2 text-muted-foreground"
+                    className="w-full justify-start gap-2 text-primary-foreground/80 h-8 text-xs"
                   >
-                    <LogOut className="size-3.5" />
+                    <LogOut className="size-3" />
                     Sign out
                   </Button>
                 ) : (
                   <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="default" size="sm" className="w-full gap-1.5">
-                      <LogIn className="size-3.5" />
+                    <Button variant="outline" size="sm" className="w-full gap-1 h-8 text-xs text-primary-foreground border-primary-foreground/30">
+                      <LogIn className="size-3" />
                       Sign in
                     </Button>
                   </Link>
                 )}
               </div>
-            </nav>
+            </div>
           </div>
         )}
-      </header>
+      </nav>
 
       {/* Breadcrumbs */}
       {showBreadcrumbs && breadcrumbs.length > 0 && (
-        <div className="bg-muted/50 border-b border-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2">
-            <nav className="flex items-center gap-1 text-xs text-muted-foreground">
+        <div className="bg-muted border-b border-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1.5">
+            <nav className="flex items-center gap-1 text-[11px] text-muted-foreground">
               <Link to="/" className="hover:text-foreground transition-colors">
                 Home
               </Link>
@@ -221,16 +283,11 @@ export default function Layout({
                 <span key={i} className="flex items-center gap-1">
                   <ChevronRight className="size-3" />
                   {crumb.href ? (
-                    <Link
-                      to={crumb.href}
-                      className="hover:text-foreground transition-colors"
-                    >
+                    <Link to={crumb.href} className="hover:text-foreground transition-colors">
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="text-foreground font-medium">
-                      {crumb.label}
-                    </span>
+                    <span className="text-foreground font-medium">{crumb.label}</span>
                   )}
                 </span>
               ))}
@@ -243,59 +300,55 @@ export default function Layout({
       <main className={cn("flex-1", className)}>{children}</main>
 
       {/* Footer */}
-      <footer className="bg-secondary text-secondary-foreground border-t border-border mt-auto">
+      <footer className="bg-secondary text-secondary-foreground mt-auto border-t-2 border-primary">
         <div className="gov-tricolor-thin" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* About */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="size-8 rounded-md bg-primary flex items-center justify-center">
-                  <Shield className="size-4 text-primary-foreground" />
+          {/* Footer grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            {FOOTER_SECTIONS.map((section) => (
+              <div key={section.title}>
+                <h4 className="text-xs font-bold uppercase tracking-wider mb-3 text-primary-foreground/90">
+                  {section.title}
+                </h4>
+                <div className="space-y-1.5">
+                  {section.links.map((link) => (
+                    <Link
+                      key={link.label}
+                      to={link.href}
+                      className="block text-[11px] text-secondary-foreground/70 hover:text-secondary-foreground transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                 </div>
-                <span className="font-bold text-sm">IP-SAKTI Sahayak</span>
               </div>
-              <p className="text-xs leading-relaxed opacity-80">
-                An intelligent information and navigation assistant for Ayurveda,
-                Intellectual Property, Traditional Knowledge, and related
-                regulatory frameworks.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h4 className="font-semibold text-sm mb-3">Quick Links</h4>
-              <div className="space-y-1.5">
-                {NAV_ITEMS.slice(0, 5).map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className="block text-xs opacity-80 hover:opacity-100 transition-opacity"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Disclaimer */}
-            <div>
-              <h4 className="font-semibold text-sm mb-3">Disclaimer</h4>
-              <p className="text-xs leading-relaxed opacity-80">
-                Information provided by IP-SAKTI Sahayak is for informational
-                and educational purposes and should be verified against the
-                latest authoritative sources. It does not constitute legal advice.
-              </p>
-            </div>
+            ))}
           </div>
 
-          <div className="mt-8 pt-4 border-t border-secondary-foreground/20 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <p className="text-xs opacity-60">
-              © {new Date().getFullYear()} IP-SAKTI Sahayak. All rights reserved.
-            </p>
-            <p className="text-xs opacity-60">
-              Built for the AYUSH &amp; Ayurveda ecosystem
-            </p>
+          {/* Bottom bar */}
+          <div className="pt-4 border-t border-secondary-foreground/20">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <AshokaEmblem className="size-8 text-secondary-foreground/60" />
+                <div>
+                  <p className="text-[10px] font-medium text-secondary-foreground/80">
+                    IP-SAKTI Sahayak
+                  </p>
+                  <p className="text-[9px] text-secondary-foreground/50">
+                    Intellectual Property &amp; Ayurveda Information Portal
+                  </p>
+                </div>
+              </div>
+              <div className="text-center sm:text-right">
+                <p className="text-[10px] text-secondary-foreground/60">
+                  Information provided is for educational purposes and should be verified against
+                  the latest authoritative sources. It does not constitute legal advice.
+                </p>
+                <p className="text-[10px] text-secondary-foreground/50 mt-1">
+                  © {new Date().getFullYear()} IP-SAKTI Sahayak. Built for the AYUSH &amp; Ayurveda ecosystem.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </footer>

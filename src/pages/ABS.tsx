@@ -1,8 +1,6 @@
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import {
   Leaf,
   Sprout,
@@ -91,14 +89,7 @@ const ABS_FRAMEWORKS = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
-};
+
 
 export default function ABS() {
   return (
@@ -132,14 +123,7 @@ export default function ABS() {
             {ABS_JOURNEY.map((item, i) => {
               const Icon = item.icon;
               return (
-                <motion.div
-                  key={i}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-20px" }}
-                  variants={fadeUp}
-                >
+                <div key={i}>
                   <div className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border/60">
                     <div className="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-xs font-bold">
                       {i + 1}
@@ -154,7 +138,7 @@ export default function ABS() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -167,8 +151,8 @@ export default function ABS() {
           </h2>
           <div className="space-y-3">
             {ABS_FRAMEWORKS.map((fw) => (
-              <Card key={fw.title} className="border-border/60">
-                <CardContent className="pt-4 pb-4 px-5">
+              <div key={fw.title} className="gov-panel rounded">
+                <div className="p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
@@ -185,8 +169,8 @@ export default function ABS() {
                       </p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>

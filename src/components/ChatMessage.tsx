@@ -48,17 +48,17 @@ export function ChatMessage({ message, onFollowUp }: ChatMessageProps) {
       )}
     >
       {!isUser && (
-        <div className="size-8 rounded-lg bg-primary flex items-center justify-center shrink-0 mt-1">
+        <div className="size-8 rounded bg-primary flex items-center justify-center shrink-0 mt-1">
           <Shield className="size-4 text-primary-foreground" />
         </div>
       )}
 
       <div
         className={cn(
-          "max-w-[85%] rounded-xl px-4 py-3",
+          "max-w-[85%] rounded px-4 py-3",
           isUser
             ? "bg-primary text-primary-foreground rounded-tr-sm"
-            : "bg-card border border-border rounded-tl-sm shadow-sm"
+            : "bg-card border border-border rounded-tl-sm"
         )}
       >
         {/* Confidence badge (assistant only) */}
@@ -106,7 +106,7 @@ export function ChatMessage({ message, onFollowUp }: ChatMessageProps) {
               <button
                 key={text}
                 onClick={() => onFollowUp?.(text)}
-                className="text-xs bg-primary/10 text-primary hover:bg-primary/20 px-2.5 py-1 rounded-full transition-colors font-medium"
+                className="text-xs bg-primary/10 text-primary hover:bg-primary/20 px-2.5 py-1 rounded transition-colors font-medium border border-primary/20"
               >
                 {text}
               </button>
@@ -129,7 +129,7 @@ export function ChatMessage({ message, onFollowUp }: ChatMessageProps) {
       </div>
 
       {isUser && (
-        <div className="size-8 rounded-lg bg-secondary text-secondary-foreground flex items-center justify-center shrink-0 mt-1">
+        <div className="size-8 rounded bg-secondary text-secondary-foreground flex items-center justify-center shrink-0 mt-1">
           <User className="size-4" />
         </div>
       )}

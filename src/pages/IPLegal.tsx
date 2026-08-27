@@ -1,8 +1,6 @@
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import {
   Scale,
   Landmark,
@@ -102,14 +100,7 @@ const IP_DOMAINS = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
-};
+
 
 export default function IPLegal() {
   return (
@@ -133,17 +124,8 @@ export default function IPLegal() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {IP_DOMAINS.map((domain, i) => {
             const Icon = domain.icon;
-            return (
-              <motion.div
-                key={domain.title}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                variants={fadeUp}
-              >
-                <Card className="h-full border-border/60 hover:border-primary/30 hover:shadow-md transition-all duration-200">
-                  <CardContent className="pt-5 pb-5 px-5">
+            return (              <div key={domain.title}>                <div className="gov-panel rounded h-full hover:border-primary/30 transition-colors">
+                    <div className="p-4">
                     <div
                       className={`size-10 rounded-lg ${domain.color} flex items-center justify-center mb-3`}
                     >
@@ -163,18 +145,17 @@ export default function IPLegal() {
                           {topic}
                         </div>
                       ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                    </div>                    </div>
+                </div>
+              </div>
             );
           })}
         </div>
 
         {/* CTA */}
         <div className="mt-12 text-center">
-          <Card className="inline-block border-primary/20 bg-primary/5">
-            <CardContent className="py-6 px-8">
+          <div className="gov-panel rounded inline-block">
+            <div className="p-6 text-center">
               <p className="text-sm font-medium mb-2">
                 Have a specific IP question?
               </p>
@@ -188,8 +169,8 @@ export default function IPLegal() {
                   Ask Sahayak
                 </Button>
               </Link>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </Layout>

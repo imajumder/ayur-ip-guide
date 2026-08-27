@@ -45,7 +45,7 @@ export function SourceCitation({ sources, className }: SourceCitationProps) {
       {sources.map((source) => (
         <div
           key={source.id}
-          className="source-citation bg-muted/50 rounded-lg p-3 hover:bg-muted/80 transition-colors"
+          className="source-citation bg-muted/50 rounded p-3 hover:bg-muted/80 transition-colors"
         >
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">

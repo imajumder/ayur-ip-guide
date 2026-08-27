@@ -1,17 +1,14 @@
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import {
   MessageSquare,
-  Shield,
   Scale,
   BookOpen,
   Leaf,
   LogOut,
   ArrowRight,
-  FlaskConical,
   Globe,
   FileText,
 } from "lucide-react";
@@ -53,113 +50,124 @@ export default function Dashboard() {
         </header>
 
         {/* Quick Access Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
           <Link to="/chat" className="block">
-            <Card className="h-full border-primary/20 hover:border-primary/40 hover:shadow-md transition-all cursor-pointer group">
-              <CardContent className="pt-5 pb-5 px-5">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="size-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
-                    <MessageSquare className="size-5" />
-                  </div>
-                  <ArrowRight className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <div className="gov-panel rounded hover:border-primary/30 transition-colors group">
+              <div className="p-4 flex items-start gap-3">
+                <div className="size-8 rounded bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <MessageSquare className="size-4" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
-                  Ask IP-SAKTI Sahayak
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Source-cited guidance on IP, Ayurveda, TK, ABS, and
-                  regulation.
-                </p>
-              </CardContent>
-            </Card>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">
+                    Ask IP-SAKTI Sahayak
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Source-cited guidance on IP, Ayurveda, TK, ABS, and regulation.
+                  </p>
+                </div>
+                <ArrowRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+              </div>
+            </div>
           </Link>
 
           <Link to="/ip-legal" className="block">
-            <Card className="h-full border-border/60 hover:border-primary/30 hover:shadow-sm transition-all cursor-pointer group">
-              <CardContent className="pt-5 pb-5 px-5">
-                <div className="size-10 rounded-lg bg-blue-600/10 text-blue-700 flex items-center justify-center mb-3">
-                  <Scale className="size-5" />
+            <div className="gov-panel rounded hover:border-primary/30 transition-colors group">
+              <div className="p-4 flex items-start gap-3">
+                <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <Scale className="size-4" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
-                  IP &amp; Legal Domains
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Patents, trademarks, GIs, copyright, designs, plant variety
-                  protection.
-                </p>
-              </CardContent>
-            </Card>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">
+                    IP &amp; Legal Domains
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Patents, trademarks, GIs, copyright, designs, plant variety protection.
+                  </p>
+                </div>
+                <ArrowRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+              </div>
+            </div>
           </Link>
 
           <Link to="/traditional-knowledge" className="block">
-            <Card className="h-full border-border/60 hover:border-primary/30 hover:shadow-sm transition-all cursor-pointer group">
-              <CardContent className="pt-5 pb-5 px-5">
-                <div className="size-10 rounded-lg bg-emerald-600/10 text-emerald-700 flex items-center justify-center mb-3">
-                  <BookOpen className="size-5" />
+            <div className="gov-panel rounded hover:border-primary/30 transition-colors group">
+              <div className="p-4 flex items-start gap-3">
+                <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <BookOpen className="size-4" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
-                  Traditional Knowledge
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  TKDL, prior art, community knowledge, international
-                  frameworks.
-                </p>
-              </CardContent>
-            </Card>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">
+                    Traditional Knowledge
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    TKDL, prior art, community knowledge, international frameworks.
+                  </p>
+                </div>
+                <ArrowRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+              </div>
+            </div>
           </Link>
 
           <Link to="/abs" className="block">
-            <Card className="h-full border-border/60 hover:border-primary/30 hover:shadow-sm transition-all cursor-pointer group">
-              <CardContent className="pt-5 pb-5 px-5">
-                <div className="size-10 rounded-lg bg-teal-600/10 text-teal-700 flex items-center justify-center mb-3">
-                  <Leaf className="size-5" />
+            <div className="gov-panel rounded hover:border-primary/30 transition-colors group">
+              <div className="p-4 flex items-start gap-3">
+                <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <Leaf className="size-4" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
-                  Access &amp; Benefit Sharing
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Biological resources, associated knowledge, ABS
-                  obligations.
-                </p>
-              </CardContent>
-            </Card>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">
+                    Access &amp; Benefit Sharing
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Biological resources, associated knowledge, ABS obligations.
+                  </p>
+                </div>
+                <ArrowRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+              </div>
+            </div>
           </Link>
 
           <Link to="/documents" className="block">
-            <Card className="h-full border-border/60 hover:border-primary/30 hover:shadow-sm transition-all cursor-pointer group">
-              <CardContent className="pt-5 pb-5 px-5">
-                <div className="size-10 rounded-lg bg-amber-600/10 text-amber-700 flex items-center justify-center mb-3">
-                  <FileText className="size-5" />
+            <div className="gov-panel rounded hover:border-primary/30 transition-colors group">
+              <div className="p-4 flex items-start gap-3">
+                <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <FileText className="size-4" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
-                  Documents &amp; Publications
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Legislation, rules, treaties, and guidelines.
-                </p>
-              </CardContent>
-            </Card>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">
+                    Documents &amp; Publications
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Legislation, rules, treaties, and guidelines.
+                  </p>
+                </div>
+                <ArrowRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+              </div>
+            </div>
           </Link>
 
           <Link to="/faq" className="block">
-            <Card className="h-full border-border/60 hover:border-primary/30 hover:shadow-sm transition-all cursor-pointer group">
-              <CardContent className="pt-5 pb-5 px-5">
-                <div className="size-10 rounded-lg bg-violet-600/10 text-violet-700 flex items-center justify-center mb-3">
-                  <Globe className="size-5" />
+            <div className="gov-panel rounded hover:border-primary/30 transition-colors group">
+              <div className="p-4 flex items-start gap-3">
+                <div className="size-8 rounded bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <Globe className="size-4" />
                 </div>
-                <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors">
-                  FAQ
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Frequently asked questions across all domains.
-                </p>
-              </CardContent>
-            </Card>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold group-hover:text-primary transition-colors">
+                    FAQ
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    Frequently asked questions across all domains.
+                  </p>
+                </div>
+                <ArrowRight className="size-3 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-1" />
+              </div>
+            </div>
           </Link>
         </div>
 
         {/* Disclaimer */}
-        <div className="text-center">
+        <div className="gov-info-box rounded">
           <p className="text-[10px] text-muted-foreground">
             Information provided is for educational purposes and should be
             verified against the latest authoritative sources. It does not
