@@ -32,12 +32,23 @@ const schema = defineSchema(
       role: v.optional(roleValidator), // role of the user. do not remove
     }).index("email", ["email"]), // index for the email. do not remove or modify
 
-    // add other tables here
-
-    // tableName: defineTable({
-    //   ...
-    //   // table fields
-    // }).index("by_field", ["field"])
+    // LlamaCloud document processing jobs
+    llamaCloudJobs: defineTable({
+      jobId: v.string(),
+      type: v.string(), // parse, classify, extract
+      sourceUrl: v.string(),
+      title: v.optional(v.string()),
+      status: v.string(), // PENDING, RUNNING, COMPLETED, FAILED, CANCELLED
+      result: v.optional(v.any()),
+      tier: v.optional(v.string()),
+      error: v.optional(v.string()),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    })
+      .index("by_jobId", ["jobId"])
+      .index("by_type", ["type"])
+      .index("by_status", ["status"])
+      .index("by_createdAt", ["createdAt"])
   },
   {
     schemaValidation: false,

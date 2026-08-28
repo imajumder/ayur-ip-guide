@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import Layout from "@/components/Layout";
+import { DocumentProcessor } from "@/components/DocumentProcessor";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -176,6 +177,11 @@ export default function Documents() {
             Authoritative legislation, rules, treaties, and guidelines relevant
             to IP, Ayurveda, TK, and ABS.
           </p>
+        </div>
+
+        {/* LlamaCloud Document Processor */}
+        <div className="mb-8">
+          <DocumentProcessor />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
